@@ -1,10 +1,51 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iTeamWork</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .ip-container {
+            margin-top: 20px;
+        }
+        .ip-container p {
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
     <script>
         // Function to set a cookie
         function setCookie(name, value, days) {
@@ -54,14 +95,20 @@
     </script>
 </head>
 <body onload="checkPolicy()">
-    <h1>Welcome to iteamwork  Homepage</h1>
-    <h1>We are under renovation! Coming Soon!</h1>
-    <button onclick="setCookie('policy', 'accept', 365)">Accept Policy</button>
-    <button onclick="setCookie('policy', 'reject', 365)">Reject Policy</button>
-    <button onclick="alert(getCookie('policy'))">Check Policy Status</button>
-    <button onclick="eraseCookie('policy')">Erase Policy Cookie</button>
-    <h1>Your IP Address is:</h1>
-    <p id="ip-address">Fetching IP address...</p>
+    <div class="container">
+        <h1>Welcome to iteamwork Homepage</h1>
+        <h2>We are under renovation! Coming Soon!</h2>
+        <div>
+            <button class="button" onclick="setCookie('policy', 'accept', 365)">Accept Policy</button>
+            <button class="button" onclick="setCookie('policy', 'reject', 365)">Reject Policy</button>
+            <button class="button" onclick="alert(getCookie('policy'))">Check Policy Status</button>
+            <button class="button" onclick="eraseCookie('policy')">Erase Policy Cookie</button>
+        </div>
+        <div class="ip-container">
+            <h2>Your IP Address is:</h2>
+            <p id="ip-address">Fetching IP address...</p>
+        </div>
+    </div>
 
     <script>
         // Function to fetch and display the IP address
