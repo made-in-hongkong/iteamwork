@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Made-in-Hongkong</title>
+    <script>
+        // Function to set a cookie
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        // Function to get a cookie
+        function getCookie(name) {
+            const cname = name + "=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookieArray = decodedCookie.split(';');
+            for(let i = 0; i < cookieArray.length; i++) {
+                let cookie = cookieArray[i];
+                while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(cname) == 0) {
+                    return cookie.substring(cname.length, cookie.length);
+                }
+            }
+            return "";
+        }
+
+        // Function to erase a cookie
+        function eraseCookie(name) {
+            setCookie(name, "", -1);
+        }
+
+        // Function to prompt for review, accept, or reject
+        function checkPolicy() {
+            const policy = getCookie("policy");
+            if (policy != "") {
+                alert("You have already " + policy + "ed the policy.");
+            } else {
+                const response = prompt("Please review the policy: Type 'accept' or 'reject'", "");
+                if (response == "accept" || response == "reject") {
+                    setCookie("policy", response, 365);
+                    alert("You have " + response + "ed the policy.");
+                } else {
+                    alert("Invalid response. Please reload the page and try again.");
+                }
+            }
+        }
+    </script>
+</head>
+<body onload="checkPolicy()">
+    <h1>Welcome to MiH Homepage</h1>
+    <h1>Hello World! Coming Soon!</h1>
+    <button onclick="setCookie('policy', 'accept', 365)">Accept Policy</button>
+    <button onclick="setCookie('policy', 'reject', 365)">Reject Policy</button>
+    <button onclick="alert(getCookie('policy'))">Check Policy Status</button>
+    <button onclick="eraseCookie('policy')">Erase Policy Cookie</button>
+    <h1>Your IP Address is:</h1>
+    <p id="ip-address">Fetching IP address...</p>
+
+    <script>
+        // Function to fetch and display the IP address
+        async function fetchIPAddress() {
+            try {
+                // Fetch the IP address from the ipify API
+                let response = await fetch('https://api.ipify.org?format=json');
+                let data = await response.json();
+
+                // Display the IP address on the webpage
+                document.getElementById('ip-address').textContent = data.ip;
+            } catch (error) {
+                // Handle any errors
+                document.getElementById('ip-address').textContent = 'Unable to fetch IP address';
+                console.error('Error fetching IP address:', error);
+            }
+        }
+
+        // Call the function when the page loads
+        window.onload = fetchIPAddress;
+    </script>
+</body>
+</html>
